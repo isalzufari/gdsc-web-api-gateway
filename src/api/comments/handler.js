@@ -10,46 +10,18 @@ class CommentsHandler {
   }
 
   async addCommentHandler(request, h) {
-    const { productId, userId } = request.params;
+    // Live Code with Nurhuda
 
-    try {
-      const comment = await this._commentsService.post(`/${productId}/user/${userId}`, request.payload);
-
-      return h.response(
-        comment.data
-      ).code(201);
-    } catch (error) {
-      const { status, data } = errorCheck(error);
-      console.log(status, data);
-    }
   }
 
   async getCommentsByIdHandler(request, h) {
-    const { productId } = request.params;
-    try {
-      const comments = await this._commentsService.get(`/${productId}`);
+    // Live Code with Nurhuda
 
-      return h.response(
-        comments.data
-      ).code(200);
-    } catch (error) {
-      errorCheck(error);
-    }
   }
 
   async deleteCommentByIdHandler(request, h) {
-    const { commentId } = request.params;
+    // Live Code with Nurhuda
 
-    try {
-      const comment = await this._commentsService.delete(`/${commentId}`);
-
-      return h.response(
-        comment.data
-      ).code(200);
-    } catch (error) {
-      console.log(error);
-      errorCheck(error);
-    }
   }
 }
 

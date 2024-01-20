@@ -12,55 +12,22 @@ class UsersHandler {
 
   // Register
   async addUserHandler(request, h) {
-    try {
-      const users = await this._usersService.post(`/`, request.payload);
+    // Live Code with  Nurhuda
 
-      return h.response(
-        users.data
-      ).code(201);
-    } catch (error) {
-      errorCheck(error);
-    }
   }
 
   async getUserByIdHandler(request, h) {
-    const { id } = request.params;
-    try {
-      const users = await this._usersService.get(`/${id}`);
+    // Live Code with Nurhuda
 
-      return h.response(
-        users.data
-      ).code(200);
-    } catch (error) {
-      errorCheck(error);
-      console.log(error);
-    }
   }
 
   async deleteUserByIdHandler(request, h) {
-    const { id } = request.params;
-    try {
-      const users = await this._usersService.delete(`/${id}`);
+    // Live Code with Nurhuda
 
-      return h.response(
-        users.data
-      ).code(200);
-    } catch (error) {
-      errorCheck(error);
-    }
   }
 
   async getUsersHandler(request, h) {
-    try {
-      const users = await this._usersService.get(`/`);
-
-      return h.response(
-        users.data
-      ).code(200);
-    } catch (error) {
-      console.log(error);
-      errorCheck(error);
-    }
+    // Live Code with Nurhuda
   }
 }
 
