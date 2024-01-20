@@ -1,5 +1,3 @@
-// Live Code with Faishal
-
 const axios = require('axios');
 
 const {
@@ -7,5 +5,8 @@ const {
 } = process.env;
 
 module.exports = (baseUrl) => {
-
+  return axios.create({
+    baseURL: baseUrl,
+    timeout: parseInt(TIMEOUT),
+  });
 }

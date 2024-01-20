@@ -13,23 +13,78 @@ class ProductsHandler {
   }
 
   async addProductHandler(request, h) {
-    // Live Code with Aisyah
 
+    try {
+      const product = await this._productsService.post(`/`, request.payload);
+
+      return h.response(
+        product.data
+      ).code(201);
+    } catch (error) {
+      errorCheck(error);
+    }
   }
 
   async getProductsHandler(request, h) {
-    // Live Code with Aisyah
+    try {
+      const { data: products } = await this._productsService.get('/');
 
+      const getOwnerProduct = async (id) => {
+        const { data: user } = await this._usersService.get(`/${id}`);
+        return user.data.fullname;
+      }
+
+      return h.response({
+        status: 'success',
+        data: await Promise.all(products.data.map(async (product) => ({
+          ...product,
+          owner: await getOwnerProduct(product.userID),
+        }))),
+      }).code(200);
+    } catch (error) {
+      errorCheck(error);
+    }
   }
 
   async getProductByIdHandler(request, h) {
-    // Live Code with Aisyah
+    const { id } = request.params;
+    try {
+      const { data: product } = await this._productsService.get(`/${id}`);
+      const { data: comments } = await this._commentsService.get(`/${id}`);
 
+      const getOwnerProduct = async (id) => {
+        const { data: user } = await this._usersService.get(`/${id}`);
+        return user.data.fullname;
+      }
+
+      const mappedProduct = {
+        ...product.data,
+        owner: await getOwnerProduct(product.data.userID),
+        comments: comments.data.map((comment) => ({
+          ...comment
+        })),
+      }
+
+      return h.response({
+        status: 'success',
+        data: mappedProduct
+      }).code(200);
+    } catch (error) {
+      errorCheck(error);
+    }
   }
 
   async deleteProductByIdHandler(request, h) {
-    // Live Code with Aisyah
+    const { id } = request.params;
+    try {
+      const product = await this._productsService.delete(`/${id}`);
 
+      return h.response(
+        product.data
+      ).code(200);
+    } catch (error) {
+      errorCheck(error);
+    }
   }
 }
 
